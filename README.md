@@ -1,41 +1,56 @@
 # HHT Lab Website Prototype
 
-This repository contains a static website prototype for an HHT focused biomedical research lab.
+This repository contains a static website prototype for the Anzell Lab, a vascular biology and genetics research lab in the SLU Department of Pediatrics.
 
-The site was designed as a public facing lab website for presenting research areas, lab members, publications, student opportunities, and contact information. It uses a single page HTML, CSS, and JavaScript structure, making it easy to host through GitHub Pages and update without a complex web framework.
+The site is designed as a public-facing lab website for research on Hereditary Hemorrhagic Telangiectasia, arteriovenous malformations, endothelial signaling, ALK1-related vascular biology, and rare vascular disease. It includes pages for the lab mission, research interests, active projects, publications, lab members, joining the lab, and contact information.
 
 ## Project purpose
 
-The goal of this project was to create a clean research website prototype for an HHT and vascular biology lab. The design focuses on making the lab’s work readable for students, collaborators, and external visitors while keeping the structure lightweight and maintainable.
+The goal of this project was to create a clean and professional lab website prototype that can help communicate the lab’s research to students, collaborators, patients, and external visitors.
 
-## Features
+The design focuses on making complex biomedical research easier to navigate while keeping the website lightweight, readable, and easy to maintain.
 
-* Home page with lab mission section
-* Research overview pages
-* Project cards for active research areas
-* Members section
-* Join the lab section
-* Contact section
-* Responsive layout
-* Static HTML, CSS, and JavaScript implementation
-* GitHub Pages compatible structure
+## Site sections
+
+- Home page with lab identity and mission area
+- HHT overview section
+- Research interests
+- Active project cards
+- Lab goals
+- Publications section
+- Current and past lab members
+- Join the lab page with application form layout
+- Contact page
+
+## Research areas represented
+
+- Hereditary Hemorrhagic Telangiectasia
+- Arteriovenous malformations
+- Vascular biology
+- Endothelial cell signaling
+- ALK1 signaling
+- Shear stress and mechanobiology
+- PRIME editing and variant validation
+- Rare vascular disease genetics
 
 ## Tech stack
 
-* HTML
-* CSS
-* JavaScript
+- HTML
+- CSS
+- JavaScript
 
 ## My role
 
-I designed and built the website prototype, including the layout, styling, navigation structure, research sections, and responsive front end. The site was created as a draft foundation that can later be updated with final lab text, images, publications, and PI approved content.
+I designed and built the static website prototype, including the page structure, navigation, styling, responsive layout, research sections, project cards, member pages, join form layout, and contact structure.
+
+The site was created as a draft foundation that can later be updated with final lab-approved text, real lab images, accurate publication information, and finalized member details.
 
 ## Status
 
 Website prototype. Not the final official lab website yet.
 
-Several sections still contain placeholder text and image placeholders that need to be replaced with final lab approved content.
+Several sections still contain placeholder text, placeholder images, and draft scientific wording that should be reviewed and approved by the PI before public use.
 
 ## Notes
 
-Scientific content, publication details, lab images, and final wording should be reviewed and approved by the PI before public use as an official lab website.
+Scientific content, publication details, images, member bios, and final wording belong to the PI and lab team and should be reviewed before the site is used as an official public lab website.
