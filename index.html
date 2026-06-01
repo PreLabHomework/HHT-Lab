@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Anzell Lab — Vascular Biology & Genetics · SLU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --cr:#b03020; --cr-dk:#8a2418; --cr-lt:#f2e5e2;
+  --bl:#1a3a6b; --bl-dk:#122a52; --bl-lt:#e8eef6;
+  --grad:linear-gradient(90deg,var(--cr),var(--bl));
+  --grad-diag:linear-gradient(135deg,var(--cr),var(--bl));
+  --bg:#f7f6f3; --bg2:#fff; --ink:#16130e; --mid:#56524a; --soft:#96918a; --bdr:#e3dfd8;
+  --serif:'Cormorant Garamond',Georgia,serif; --sans:'Outfit',system-ui,sans-serif;
+  --r:4px; --sh:0 2px 20px rgba(22,19,14,.07); --shl:0 10px 48px rgba(22,19,14,.14);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.65;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+
+/* ── GRADIENT UTILS ── */
+.gt{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.gl{height:2px;background:var(--grad);opacity:.2}
+
+/* ── NAV ── */
+#topnav{position:sticky;top:0;z-index:9999;background:var(--ink);border-bottom:3px solid transparent;border-image:var(--grad) 1}
+.nsh{max-width:1280px;margin:0 auto;display:flex;align-items:stretch;padding:0 2.5rem}
+.nbrand{font-family:var(--serif);font-size:1.2rem;font-weight:600;color:#fff;padding:0 1.5rem 0 0;margin-right:1rem;border-right:1px solid rgba(255,255,255,.1);display:flex;align-items:center;cursor:pointer;white-space:nowrap;letter-spacing:.02em}
+.nbrand span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ntabs{display:flex;align-items:stretch;list-style:none}
+.ntab{position:relative;display:flex;align-items:stretch}
+.ntab>a{display:flex;align-items:center;gap:.25rem;padding:0 1.05rem;height:52px;font-size:.74rem;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.55);white-space:nowrap;transition:color .18s,background .18s}
+.ntab>a:hover,.ntab.on>a{color:#fff;background:rgba(255,255,255,.05)}
+.ntab.on>a{border-bottom:3px solid transparent;border-image:var(--grad) 1;margin-bottom:-3px}
+.ntab>a .cr{font-size:.5rem;opacity:.4;transition:transform .18s}
+.ntab:hover>a .cr{transform:rotate(180deg)}
+.ndrop{display:none;position:absolute;top:52px;left:0;min-width:210px;background:var(--bg2);border-top:3px solid transparent;border-image:var(--grad) 1;box-shadow:var(--shl);z-index:10000}
+.ntab:hover .ndrop{display:block}
+.ndrop a{display:block;padding:.65rem 1.2rem;font-size:.8rem;color:var(--ink);border-bottom:1px solid var(--bdr);transition:background .13s}
+.ndrop a:last-child{border:none}
+.ndrop a:hover{background:var(--bl-lt);color:var(--bl-dk)}
+
+/* ── PAGES ── */
+.pg{display:none}.pg.on{display:block}
+
+/* ── PAGE HERO ── */
+.phero{background:var(--ink);padding:4.5rem 2.5rem 4rem;position:relative;overflow:hidden}
+.phero::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(176,48,32,.22),rgba(26,58,107,.22));pointer-events:none}
+.phi{max-width:1280px;margin:0 auto;position:relative;z-index:1}
+.phe{font-size:.7rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.9rem;display:flex;align-items:center;gap:.5rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.phe::before{content:'';width:20px;height:1px;background:var(--grad);flex-shrink:0}
+.phero h1{font-family:var(--serif);font-size:clamp(2.4rem,4.5vw,3.6rem);font-weight:600;color:#fff;line-height:1.1;margin-bottom:.9rem}
+.phero h1 em{font-style:italic;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.phero .psub{color:rgba(247,246,243,.55);font-size:.97rem;max-width:540px;line-height:1.75}
+
+/* ── SUBTAB BAR ── */
+.stbar{background:var(--bg2);border-bottom:1px solid var(--bdr);position:sticky;top:52px;z-index:100}
+.stbar .wr{max-width:1280px;margin:0 auto;padding:0 2.5rem;display:flex;overflow-x:auto}
+.stab{padding:.8rem 1.3rem;font-size:.75rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--soft);border-bottom:2px solid transparent;white-space:nowrap;cursor:pointer;transition:color .18s}
+.stab:hover{color:var(--ink)}.stab.on{color:var(--bl);border-bottom-color:var(--bl)}
+
+/* ── SUB-PAGES ── */
+.sp{display:none;padding:4.5rem 0}.sp.on{display:block}
+.wr{max-width:1280px;margin:0 auto;padding:0 2.5rem}
+
+/* ── SECTION HEADING ── */
+.sh{margin-bottom:3rem}
+.she{font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.she::before{content:'';width:16px;height:1px;background:var(--grad);flex-shrink:0}
+.sh h2{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:600;line-height:1.15}
+.sh h2 em{font-style:italic;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sh p{margin-top:.8rem;color:var(--mid);font-size:.95rem;max-width:560px;line-height:1.75}
+
+/* ── BTNS ── */
+.btn{display:inline-flex;align-items:center;gap:.45rem;padding:.72rem 1.65rem;border-radius:var(--r);font-family:var(--sans);font-size:.78rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:all .18s;border:none}
+.btng{background:var(--grad);color:#fff}.btng:hover{opacity:.88}
+.btno{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.28)}.btno:hover{border-color:#fff;background:rgba(255,255,255,.07)}
+.btngh{background:transparent;color:var(--bl);border:2px solid var(--bdr)}.btngh:hover{border-color:var(--bl);background:var(--bl-lt)}
+
+/* ── PHOTO PH ── */
+/* REPLACE: swap with <img src="..." style="width:100%;height:Xpx;object-fit:cover;"/> */
+.pph{background:linear-gradient(135deg,#ede8e0,#ddd7cd);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;color:var(--soft);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase}
+.pph svg{opacity:.2}
+.h120{height:120px}.h160{height:160px}.h200{height:200px}.h260{height:260px}.h320{height:320px}.h380{height:380px}
+
+/* ── FADE IN ── */
+.fi{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.fi.vs{opacity:1;transform:none}
+
+/* ════════════════════════════════════════════
+   HOME
+════════════════════════════════════════════ */
+
+/* ── HERO ── */
+.hhero{min-height:100vh;background:var(--ink);display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.hhbg{position:absolute;inset:0}
+.hhbg svg{width:100%;height:100%;position:absolute;inset:0}
+.hhbg::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(176,48,32,.3) 0%,transparent 45%,rgba(26,58,107,.3) 100%)}
+/* darkening gradient at bottom for smooth transition */
+.hhbg::before{content:'';position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(to bottom,transparent,rgba(22,19,14,.6));z-index:1}
+.hhcontent{max-width:1280px;margin:0 auto;padding:0 2.5rem;position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.hheye{font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:.5rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hheye::before{content:'';width:28px;height:1px;background:var(--grad);flex-shrink:0}
+.hhero h1{font-family:var(--serif);font-size:clamp(3.2rem,5.8vw,5.2rem);font-weight:300;color:#fff;line-height:1.02;margin-bottom:1.8rem;letter-spacing:-.01em}
+.hhero h1 em{font-style:italic;font-weight:600;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hlead{color:rgba(247,246,243,.6);font-size:1rem;max-width:480px;line-height:1.85;margin-bottom:2.5rem}
+.hctas{display:flex;gap:1rem;flex-wrap:wrap}
+
+/* hero right: science visual */
+.hhvis{position:relative}
+.hhvis-img{border-radius:var(--r);overflow:hidden;box-shadow:var(--shl);position:relative}
+/* gradient frame */
+.hhvis-img::before{content:'';position:absolute;inset:0;border:2px solid transparent;border-image:var(--grad) 1;z-index:1;pointer-events:none}
+.hhvis-caption{margin-top:.75rem;font-size:.72rem;color:rgba(247,246,243,.35);letter-spacing:.06em;text-align:center}
+
+.scrolldown{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:.5rem;color:rgba(247,246,243,.28);font-size:.63rem;letter-spacing:.13em;text-transform:uppercase}
+.sdline{width:1px;height:38px;background:linear-gradient(to bottom,transparent,rgba(247,246,243,.28));animation:sdp 2s ease-in-out infinite}
+@keyframes sdp{0%,100%{opacity:.3}50%{opacity:.9}}
+
+/* ── QUOTE SECTION ── */
+.qsect{background:var(--ink);padding:6rem 2.5rem;position:relative;overflow:hidden}
+.qsect::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(176,48,32,.15),rgba(26,58,107,.15));pointer-events:none}
+.qinner{max-width:900px;margin:0 auto;text-align:center;position:relative;z-index:1}
+.qdeco{font-family:var(--serif);font-size:8rem;line-height:.6;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1.5rem;display:block;opacity:.4}
+/* EDIT: replace with real quote from Dr. Anzell */
+.qtext{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300;font-style:italic;color:#fff;line-height:1.45;margin-bottom:2rem}
+.qattr{font-size:.8rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(247,246,243,.4)}
+.qattr span{display:inline-block;width:32px;height:1px;background:rgba(247,246,243,.25);vertical-align:middle;margin-right:.7rem}
+
+/* ── ABOUT STRIP ── */
+.astrip{background:var(--bg2);padding:5.5rem 0}
+.agrid{display:grid;grid-template-columns:1.2fr 1fr;gap:5rem;align-items:start}
+.atext p{font-size:.94rem;color:var(--mid);line-height:1.85;margin-bottom:1.1rem}
+.picard{background:var(--bg);border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
+.picard-body{padding:1.4rem}
+.piname{font-family:var(--serif);font-size:1.3rem;font-weight:600;margin-bottom:.25rem}
+.pirole{font-size:.75rem;font-weight:500;letter-spacing:.05em;margin-bottom:.8rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pibio{font-size:.85rem;color:var(--mid);line-height:1.7;margin-bottom:1rem}
+.pilinks{display:flex;flex-direction:column;gap:.35rem}
+.pilink{font-size:.8rem;color:var(--bl);font-weight:500;display:flex;align-items:center;gap:.4rem}
+.pilink:hover{color:var(--bl-dk)}
+
+/* ── PROJECT SCROLL STRIP ── */
+.pscroll-sect{padding:5.5rem 0 4rem;background:var(--bg);overflow:hidden}
+.pscroll-head{padding:0 2.5rem;max-width:1280px;margin:0 auto 2.5rem}
+/* horizontal scroll track */
+.pscroll-track-wrap{padding-left:2.5rem;overflow:hidden;position:relative}
+.pscroll-track-wrap::after{content:'';position:absolute;top:0;right:0;bottom:0;width:120px;background:linear-gradient(to left,var(--bg),transparent);pointer-events:none;z-index:2}
+.pscroll-track{display:flex;gap:1.5rem;overflow-x:auto;padding-bottom:1.5rem;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;cursor:grab}
+.pscroll-track:active{cursor:grabbing}
+/* hide scrollbar visually */
+.pscroll-track::-webkit-scrollbar{height:3px}
+.pscroll-track::-webkit-scrollbar-track{background:var(--bdr)}
+.pscroll-track::-webkit-scrollbar-thumb{background:var(--grad)}
+.pcard{flex:0 0 340px;scroll-snap-align:start;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;transition:box-shadow .2s,transform .2s;position:relative}
+.pcard:hover{box-shadow:var(--shl);transform:translateY(-4px)}
+/* gradient top bar on each card */
+.pcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad);z-index:1}
+.pcard-img{position:relative}
+/* HHT science image placeholder - will be replaced with real microscopy / illustration */
+.pcard-img .pph{height:200px}
+/* Overlay label on image */
+.pcard-label{position:absolute;bottom:.8rem;left:.8rem;font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;background:rgba(22,19,14,.75);color:#fff;padding:.3rem .7rem;border-radius:2px;backdrop-filter:blur(4px)}
+.pcard-body{padding:1.4rem}
+.pcard-tag{display:inline-block;font-size:.65rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding:.2rem .6rem;border-radius:2px;margin-bottom:.7rem;background:var(--bl-lt);color:var(--bl)}
+.pcard h3{font-family:var(--serif);font-size:1.15rem;font-weight:600;line-height:1.3;margin-bottom:.55rem}
+.pcard p{font-size:.83rem;color:var(--mid);line-height:1.75}
+/* scroll nav arrows */
+.pscroll-nav{padding:1.5rem 2.5rem 0;max-width:1280px;margin:0 auto;display:flex;gap:.75rem;align-items:center}
+.sarrow{width:40px;height:40px;border-radius:50%;border:2px solid var(--bdr);background:var(--bg2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .18s;color:var(--soft)}
+.sarrow:hover{border-image:var(--grad) 1;background:var(--bl-lt);color:var(--bl)}
+.sprogress{flex:1;max-width:200px;height:2px;background:var(--bdr);border-radius:2px;overflow:hidden;margin-left:.5rem}
+.spbar{height:100%;background:var(--grad);border-radius:2px;width:25%;transition:width .3s}
+
+/* ── HHT BAND ── */
+/* dark info band about HHT for context / education */
+.hhtband{background:var(--ink);padding:5rem 2.5rem;position:relative;overflow:hidden}
+.hhtband::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(176,48,32,.2),rgba(26,58,107,.2));pointer-events:none}
+.hhtgrid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;position:relative;z-index:1}
+.hhttext h2{font-family:var(--serif);font-size:clamp(2rem,3.5vw,3rem);font-weight:600;color:#fff;line-height:1.15;margin-bottom:1.2rem}
+.hhttext h2 em{font-style:italic;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hhttext p{font-size:.93rem;color:rgba(247,246,243,.58);line-height:1.85;margin-bottom:1.1rem}
+/* stat pills — lightweight, no numbers emphasis */
+.hhtpills{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.5rem}
+.hpill{font-size:.75rem;font-weight:500;padding:.4rem 1rem;border-radius:100px;border:1px solid rgba(255,255,255,.14);color:rgba(247,246,243,.65)}
+/* vessel illustration area */
+.hhtvis{position:relative}
+.hhtvis-img{border-radius:var(--r);overflow:hidden;box-shadow:var(--shl)}
+.hhtvis-img .pph{height:320px}
+.hhtvis-caption{margin-top:.75rem;font-size:.72rem;color:rgba(247,246,243,.3);letter-spacing:.06em}
+
+/* ── FOOTER ── */
+footer{background:var(--ink);padding:0}
+footer::before{content:'';display:block;height:2px;background:var(--grad)}
+.finner{max-width:1280px;margin:0 auto;padding:2.5rem 2.5rem;display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap}
+.fbrand{font-family:var(--serif);font-size:1.1rem}
+.fbrand span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.fbrand small{display:block;font-family:var(--sans);font-size:.72rem;color:rgba(247,246,243,.28);margin-top:.2rem}
+.flinks{display:flex;gap:1.5rem;flex-wrap:wrap}
+.flinks a{font-size:.8rem;color:rgba(247,246,243,.4);transition:color .18s}
+.flinks a:hover{color:#fff}
+
+/* ════════════════════════════════════════════
+   RESEARCH PAGE
+════════════════════════════════════════════ */
+.icard{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:1.8rem;position:relative;overflow:hidden;transition:box-shadow .18s}
+.icard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad)}
+.icard:hover{box-shadow:var(--sh)}
+.icard h3{font-family:var(--serif);font-size:1.2rem;font-weight:600;margin-bottom:.6rem;line-height:1.3}
+.icard p{font-size:.875rem;color:var(--mid);line-height:1.75}
+.itags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem}
+.itag{font-size:.67rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding:.2rem .6rem;border-radius:2px;border:1px solid var(--bdr);color:var(--soft)}
+.icard.ph{border-style:dashed;opacity:.55}.icard.ph::before{display:none}
+.igrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+
+/* goals */
+.glist{display:flex;flex-direction:column;gap:1.5rem}
+.gitem{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:2rem;display:grid;grid-template-columns:3rem 1fr;gap:2rem;align-items:start;transition:box-shadow .18s}
+.gitem:hover{box-shadow:var(--sh)}
+.gnum{font-family:var(--serif);font-size:2.2rem;font-weight:400;line-height:1;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:.45}
+.gitem h3{font-family:var(--serif);font-size:1.2rem;font-weight:600;margin-bottom:.5rem;line-height:1.3}
+.gitem p{font-size:.875rem;color:var(--mid);line-height:1.75}
+.gitem.ph{border-style:dashed;opacity:.55}
+
+/* pubs */
+.plist{display:flex;flex-direction:column;gap:1rem}
+.pitem{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:1.4rem 1.6rem;display:grid;grid-template-columns:56px 1fr;gap:1.2rem;align-items:start;transition:box-shadow .18s}
+.pitem:hover{box-shadow:var(--sh)}
+.pyr{font-family:var(--serif);font-size:1.5rem;font-weight:600;line-height:1;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pttl{font-size:.92rem;font-weight:600;line-height:1.4;margin-bottom:.3rem}
+.pau{font-size:.8rem;color:var(--soft);margin-bottom:.35rem}
+.pjn{font-size:.8rem;color:var(--bl);font-style:italic;margin-bottom:.6rem}
+.plks{display:flex;gap:.8rem}
+.plk{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--bl);border-bottom:1px solid var(--bl-lt);transition:border-color .18s}
+.plk:hover{border-color:var(--bl)}
+.pitem.ph{opacity:.5;border-style:dashed}
+
+/* ════════════════════════════════════════════
+   MEMBERS
+════════════════════════════════════════════ */
+.mlist{display:flex;flex-direction:column;gap:2rem}
+.mrow{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;display:grid;grid-template-columns:260px 1fr;transition:box-shadow .2s}
+.mrow:hover{box-shadow:var(--shl)}
+.mrow-img{position:relative}
+.mrow-img .pph{height:100%;min-height:240px}
+.mrow-body{padding:2rem 2.4rem;display:flex;flex-direction:column;justify-content:center}
+.mrole{font-size:.68rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;margin-bottom:.4rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.mname{font-family:var(--serif);font-size:1.5rem;font-weight:600;margin-bottom:.6rem;line-height:1.1}
+.mbio{font-size:.88rem;color:var(--mid);line-height:1.8;margin-bottom:1rem}
+.mlinks{display:flex;gap:1.2rem;flex-wrap:wrap}
+.mlink{font-size:.78rem;color:var(--bl);font-weight:500;border-bottom:1px solid var(--bl-lt);transition:border-color .15s}
+.mlink:hover{border-color:var(--bl)}
+.ugrid-section{margin-top:3rem;padding-top:2rem;border-top:1px solid var(--bdr)}
+.ugrid-label{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);margin-bottom:1.2rem}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1.2rem}
+.mcard{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;transition:box-shadow .18s}
+.mcard:hover{box-shadow:var(--sh)}
+.minfo{padding:.9rem 1rem}
+.minfo .mrole{font-size:.63rem}
+.minfo .mname{font-family:var(--serif);font-size:.95rem;font-weight:600;margin-bottom:.25rem}
+.minfo .mbio{font-size:.77rem;margin-bottom:0}
+
+/* ════════════════════════════════════════════
+   JOIN US
+════════════════════════════════════════════ */
+.jgrid{display:grid;grid-template-columns:1.4fr 1fr;gap:4rem;align-items:start}
+.jtext h3{font-family:var(--serif);font-size:1.4rem;font-weight:600;margin-bottom:1rem}
+.jtext p{font-size:.93rem;color:var(--mid);line-height:1.85;margin-bottom:1rem}
+.poslist{display:flex;flex-direction:column;gap:1rem}
+.poscard{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:1.1rem 1.3rem;position:relative;overflow:hidden}
+.poscard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--grad)}
+.postitle{font-weight:600;font-size:.9rem;margin-bottom:.3rem}
+.posdesc{font-size:.82rem;color:var(--mid);line-height:1.65}
+.bdg{display:inline-block;font-size:.63rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.15rem .5rem;border-radius:2px;margin-left:.5rem;vertical-align:middle}
+.open{background:#d4edda;color:#155724}.closed{background:#f8d7da;color:#721c24}
+.infocard{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:1.8rem;position:relative;overflow:hidden}
+.infocard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad)}
+.ictag{display:inline-block;font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .6rem;border-radius:2px;margin-bottom:.9rem;background:var(--bl-lt);color:var(--bl)}
+.infocard h3{font-family:var(--serif);font-size:1.2rem;font-weight:600;margin-bottom:.6rem}
+.infocard p{font-size:.875rem;color:var(--mid);line-height:1.75}
+
+/* ════════════════════════════════════════════
+   CONTACT
+════════════════════════════════════════════ */
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:4rem}
+.cform{display:flex;flex-direction:column;gap:1rem}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.fg{display:flex;flex-direction:column;gap:.3rem}
+.fg label{font-size:.7rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--soft)}
+.fg input,.fg select,.fg textarea{font-family:var(--sans);font-size:.88rem;padding:.65rem .95rem;border:1px solid var(--bdr);border-radius:var(--r);background:var(--bg2);color:var(--ink);outline:none;transition:border-color .18s}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--bl)}
+.fg textarea{min-height:120px;resize:vertical}
+.cinfo{display:flex;flex-direction:column;gap:1.5rem}
+.ci{display:flex;gap:1rem;align-items:flex-start}
+.ciico{width:40px;height:40px;border-radius:50%;flex-shrink:0;background:var(--bl-lt);display:flex;align-items:center;justify-content:center;color:var(--bl)}
+.cilbl{font-size:.68rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--soft);margin-bottom:.2rem}
+.cival{font-size:.9rem;color:var(--ink);line-height:1.55}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  .hhcontent,.agrid,.hhtgrid,.jgrid,.cgrid,.mrow{grid-template-columns:1fr;gap:3rem}
+  .hhvis{display:none}
+  .gitem{grid-template-columns:1fr}.gnum{display:none}
+}
+@media(max-width:640px){
+  .frow{grid-template-columns:1fr}
+  .pcard{flex:0 0 290px}
+  .hhtgrid{grid-template-columns:1fr}
+}
+
+/* ════════════════════════════════════════════
+   JOIN US FORM
+════════════════════════════════════════════ */
+.jform-layout{display:grid;grid-template-columns:1fr 1.3fr;gap:4.5rem;align-items:start}
+.jform-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);position:relative}
+.jform-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad)}
+.jform-card-head{padding:1.8rem 2rem 1.2rem;border-bottom:1px solid var(--bdr)}
+.jform-card-title{font-family:var(--serif);font-size:1.3rem;font-weight:600;margin-bottom:.3rem}
+.jform-card-sub{font-size:.82rem;color:var(--soft);line-height:1.6}
+.jform{display:flex;flex-direction:column;gap:1rem;padding:1.8rem 2rem 2rem}
+.file-drop{border:1.5px dashed var(--bdr);border-radius:var(--r);padding:1.4rem;display:flex;flex-direction:column;align-items:center;gap:.5rem;cursor:pointer;transition:border-color .18s,background .18s;background:var(--bg);color:var(--soft);font-size:.82rem;text-align:center}
+.file-drop:hover{border-color:var(--bl);background:var(--bl-lt);color:var(--bl)}
+.file-drop.has-file{border-color:var(--bl);background:var(--bl-lt);color:var(--bl)}
+@media(max-width:960px){.jform-layout{grid-template-columns:1fr;gap:2.5rem}}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav id="topnav">
+  <div class="nsh">
+    <div class="nbrand" onclick="go('home')"><span>Anzell Lab</span></div>
+    <ul class="ntabs">
+      <li class="ntab on" data-pg="home"><a href="#" onclick="go('home');return false;">Home</a></li>
+      <li class="ntab" data-pg="research">
+        <a href="#" onclick="go('research','sp-res-int');return false;">Research <span class="cr">&#9660;</span></a>
+        <div class="ndrop">
+          <a href="#" onclick="go('research','sp-res-int');return false;">Research Interests</a>
+          <a href="#" onclick="go('research','sp-res-goals');return false;">Goals</a>
+          <a href="#" onclick="go('research','sp-res-pubs');return false;">Publications</a>
+        </div>
+      </li>
+      <li class="ntab" data-pg="members">
+        <a href="#" onclick="go('members','sp-mem-cur');return false;">Members <span class="cr">&#9660;</span></a>
+        <div class="ndrop">
+          <a href="#" onclick="go('members','sp-mem-cur');return false;">Current Members</a>
+          <a href="#" onclick="go('members','sp-mem-past');return false;">Past Members</a>
+        </div>
+      </li>
+      <li class="ntab" data-pg="join">
+        <a href="#" onclick="go('join');return false;">Join Us</a>
+      </li>
+      <li class="ntab" data-pg="contact"><a href="#" onclick="go('contact');return false;">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════
+     HOME PAGE
+═══════════════════════════════════════════ -->
+<div id="pg-home" class="pg on">
+
+  <!-- HERO -->
+  <section class="hhero">
+    <div class="hhbg">
+      <svg viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="vg" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#b03020" stop-opacity=".25"/>
+            <stop offset="50%" stop-color="#6b2650" stop-opacity=".1"/>
+            <stop offset="100%" stop-color="#1a3a6b" stop-opacity=".25"/>
+          </linearGradient>
+          <linearGradient id="vg2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#b03020" stop-opacity=".4"/>
+            <stop offset="100%" stop-color="#1a3a6b" stop-opacity=".4"/>
+          </linearGradient>
+        </defs>
+        <rect width="1400" height="900" fill="url(#vg)"/>
+        <!-- vessel network paths -->
+        <g stroke="url(#vg2)" stroke-width="1" fill="none" opacity=".2">
+          <path d="M-50,450 Q150,300 350,420 Q550,540 750,380 Q950,220 1150,340 Q1300,420 1450,360"/>
+          <path d="M-50,550 Q100,400 280,500 Q460,600 680,460 Q900,320 1100,420 Q1280,500 1450,460" opacity=".7"/>
+          <path d="M-50,350 Q200,200 420,330 Q640,460 880,320 Q1060,200 1250,290 Q1380,350 1450,310" opacity=".5"/>
+          <path d="M350,0 Q400,200 420,420 Q440,640 380,900"/>
+          <path d="M750,0 Q800,250 820,480 Q840,700 780,900" opacity=".7"/>
+          <path d="M1100,0 Q1050,200 1020,400 Q990,600 1040,900" opacity=".5"/>
+        </g>
+        <!-- vessel branch nodes -->
+        <g fill="url(#vg2)" opacity=".35">
+          <circle cx="350" cy="420" r="5"/><circle cx="750" cy="380" r="6"/>
+          <circle cx="1150" cy="340" r="4.5"/><circle cx="420" cy="330" r="4"/>
+          <circle cx="820" cy="480" r="3.5"/><circle cx="680" cy="460" r="3"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="hhcontent">
+      <div>
+        <!-- EDIT: lab/dept label -->
+        <div class="hheye">Anzell Lab &middot; SLU Department of Pediatrics</div>
+        <!-- EDIT: main headline — keep poetic/aspirational for a new lab -->
+        <h1>Understanding<br/>the <em>biology</em><br/>of rare<br/>vascular disease</h1>
+        <!-- EDIT: 2 sentence mission statement -->
+        <p class="hlead">[Short lab mission &mdash; 2 sentences on what the lab does and why it matters. Ask Dr. Anzell.]</p>
+        <div class="hctas">
+          <a href="#" class="btn btng" onclick="go('research','sp-res-int');return false;">Explore Our Science</a>
+          <a href="#" class="btn btno" onclick="go('join','sp-join-open');return false;">Join the Lab</a>
+        </div>
+      </div>
+      <div class="hhvis fi">
+        <!-- EDIT: replace with real microscopy / HHT image -->
+        <!-- Suggested: confocal image of vessel, telangiectasia, endothelial cells -->
+        <div class="hhvis-img">
+          <div class="pph h380">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="9"/><path d="M12 3 Q16 8 12 12 Q8 16 12 21"/><path d="M3 12 Q8 8 12 12 Q16 16 21 12"/></svg>
+            Microscopy Image Placeholder<br/><span style="font-size:.6rem;opacity:.6">(replace with HHT/vessel imagery)</span>
+          </div>
+        </div>
+        <!-- EDIT: image caption -->
+        <div class="hhvis-caption">[Image caption &mdash; e.g. &ldquo;Confocal microscopy of HHT patient tissue&rdquo;]</div>
+      </div>
+    </div>
+    <div class="scrolldown"><div class="sdline"></div><span>Scroll</span></div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="qsect">
+    <div class="qinner fi">
+      <span class="qdeco">&ldquo;</span>
+      <p class="qtext">It&rsquo;s always a rare disease until you&rsquo;re the one that has it.</p>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="astrip">
+    <div class="wr">
+      <div class="agrid">
+        <div class="fi">
+          <div class="sh">
+            <div class="she">The Lab</div>
+            <h2>About <em>Anzell Lab</em></h2>
+          </div>
+          <!-- EDIT: 2-3 about paragraphs -->
+          <p>[Overview of the lab&rsquo;s focus. What diseases does the lab study, and why do they matter to patients?]</p>
+          <p>[Methods and approach &mdash; computational, cellular, molecular. What makes the lab&rsquo;s angle unique?]</p>
+          <p>[Vision sentence &mdash; where does the lab want to be in 5 years?]</p>
+          <br/>
+          <a href="#" class="btn btng" onclick="go('research','sp-res-int');return false;">Our Research &rarr;</a>
+        </div>
+        <!-- EDIT: replace .pph with real headshot <img src="..." style="height:260px;width:100%;object-fit:cover;"/> -->
+        <div class="picard fi">
+          <div class="pph h260">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            Photo Placeholder
+          </div>
+          <div class="picard-body">
+            <div class="piname">Anthony R. Anzell, Ph.D.</div>
+            <div class="pirole">Principal Investigator &middot; Asst. Professor, Dept. of Pediatrics</div>
+            <!-- EDIT: PI bio 2-3 sentences -->
+            <p class="pibio">[PI bio &mdash; 2&ndash;3 sentences. Ask Dr. Anzell for preferred wording.]</p>
+            <div class="pilinks">
+              <!-- EDIT: confirm email; add Scholar/ORCID -->
+              <a class="pilink" href="mailto:anthony.anzell@slu.edu">&#9993; anthony.anzell@slu.edu</a>
+              <a class="pilink" href="#">&#128279; Google Scholar</a>
+              <a class="pilink" href="#">&#128196; CV</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gl"></div>
+
+  <!-- PROJECT SCROLL -->
+  <section class="pscroll-sect">
+    <div class="pscroll-head fi">
+      <div class="sh" style="margin-bottom:0">
+        <div class="she">Active Projects</div>
+        <h2>What We&rsquo;re <em>Working On</em></h2>
+      </div>
+    </div>
+
+    <div class="pscroll-track-wrap">
+      <div class="pscroll-track" id="projTrack">
+
+        <!-- EDIT: one .pcard per project. Replace .pph with real image. -->
+        <div class="pcard">
+          <div class="pcard-img">
+            <!-- EDIT: HHT/AVM related image — e.g. telangiectasia microscopy -->
+            <div class="pph h200">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="9"/><path d="M8 12 Q10 8 12 12 Q14 16 16 12"/></svg>
+              Image Placeholder
+            </div>
+            <div class="pcard-label">HHT Genetics</div>
+          </div>
+          <div class="pcard-body">
+            <span class="pcard-tag">Ongoing</span>
+            <h3>Molecular Validation of HHT Variants</h3>
+            <p>[2&ndash;3 sentences on this project. Methods, goals, current stage.]</p>
+          </div>
+        </div>
+
+        <div class="pcard">
+          <div class="pcard-img">
+            <!-- EDIT: AVM/vessel structure image -->
+            <div class="pph h200">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 12 Q6 6 12 6 Q18 6 21 12 Q18 18 12 18 Q6 18 3 12"/></svg>
+              Image Placeholder
+            </div>
+            <div class="pcard-label">AVM Biology</div>
+          </div>
+          <div class="pcard-body">
+            <span class="pcard-tag">Ongoing</span>
+            <h3>Cellular Mechanisms of AVM Development</h3>
+            <p>[2&ndash;3 sentence description. What the lab is doing, methods, goal.]</p>
+          </div>
+        </div>
+
+        <div class="pcard">
+          <div class="pcard-img">
+            <!-- EDIT: endothelial cell / flow assay image -->
+            <div class="pph h200">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M2 12 Q6 4 12 4 Q18 4 22 12"/><path d="M2 12 Q6 20 12 20 Q18 20 22 12"/></svg>
+              Image Placeholder
+            </div>
+            <div class="pcard-label">Mechanobiology</div>
+          </div>
+          <div class="pcard-body">
+            <span class="pcard-tag">Ongoing</span>
+            <h3>Flow-Mediated Endothelial Signaling</h3>
+            <p>[2&ndash;3 sentence description of shear stress / ALK1 project.]</p>
+          </div>
+        </div>
+
+        <div class="pcard">
+          <div class="pcard-img">
+            <!-- EDIT: PRIME editing / genomics visualization -->
+            <div class="pph h200">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M4 6 L20 6 M4 10 L16 10 M4 14 L18 14 M4 18 L14 18"/><circle cx="19" cy="14" r="3"/></svg>
+              Image Placeholder
+            </div>
+            <div class="pcard-label">Genomics</div>
+          </div>
+          <div class="pcard-body">
+            <span class="pcard-tag">Ongoing</span>
+            <h3>PRIME Editing Screens for Variant Identification</h3>
+            <p>[2&ndash;3 sentence description of the genomic/computational arm of the lab&rsquo;s work.]</p>
+          </div>
+        </div>
+
+        <!-- EDIT: add more project cards as needed -->
+        <div class="pcard" style="opacity:.55">
+          <div class="pcard-img">
+            <div class="pph h200">Image Placeholder</div>
+            <div class="pcard-label">TBD</div>
+          </div>
+          <div class="pcard-body">
+            <span class="pcard-tag">Planned</span>
+            <h3>[Project Title Placeholder]</h3>
+            <p>[Ask Dr. Anzell: any additional projects to add here?]</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- scroll nav -->
+    <div class="pscroll-nav">
+      <button class="sarrow" id="sarr-l" onclick="scrollProj(-1)" aria-label="Previous">&#8592;</button>
+      <button class="sarrow" id="sarr-r" onclick="scrollProj(1)" aria-label="Next">&#8594;</button>
+      <div class="sprogress"><div class="spbar" id="sprbar"></div></div>
+    </div>
+  </section>
+
+  <div class="gl"></div>
+
+  <!-- HHT INFO BAND -->
+  <section class="hhtband">
+    <div class="hhtgrid">
+      <div class="hhttext fi">
+        <div class="she" style="margin-bottom:.8rem">Why It Matters</div>
+        <h2>What is <em>HHT</em>?</h2>
+        <!-- EDIT: adjust or expand this description with Dr. Anzell's preferred patient-facing language -->
+        <p>Hereditary Hemorrhagic Telangiectasia (HHT) is a rare genetic disorder that causes abnormal connections between arteries and veins &mdash; called arteriovenous malformations (AVMs) &mdash; throughout the body. Left undiagnosed, AVMs in the brain, lungs, and liver can lead to life-threatening complications.</p>
+        <p>HHT affects approximately 1 in 5,000 people worldwide, yet it remains widely underdiagnosed. The Anzell Lab is working to change that through molecular genetics, cellular biology, and the development of new diagnostic and therapeutic tools.</p>
+        <!-- EDIT: update/add pills as appropriate -->
+        <div class="hhtpills">
+          <span class="hpill">~1 in 5,000 affected</span>
+          <span class="hpill">Autosomal dominant</span>
+          <span class="hpill">Brain &middot; Lung &middot; Liver AVMs</span>
+          <span class="hpill">Rare &amp; underdiagnosed</span>
+        </div>
+      </div>
+      <div class="hhtvis fi">
+        <!-- EDIT: replace with real HHT patient tissue image, vessel illustration, or infographic -->
+        <div class="hhtvis-img">
+          <div class="pph h320">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2 Q18 6 18 12 Q18 18 12 22 Q6 18 6 12 Q6 6 12 2"/><path d="M9 12 Q10 9 12 12 Q14 15 15 12"/></svg>
+            HHT Illustration / Vessel Image<br/><span style="font-size:.6rem;opacity:.6">(replace with real imagery)</span>
+          </div>
+        </div>
+        <!-- EDIT: image caption -->
+        <div class="hhtvis-caption">[Caption &mdash; e.g. &ldquo;Telangiectasia in HHT patient nasal mucosa&rdquo;]</div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /home -->
+
+
+<!-- ═══════════════════════════════════════════
+     RESEARCH
+═══════════════════════════════════════════ -->
+<div id="pg-research" class="pg">
+  <div class="phero">
+    <div class="phi">
+      <div class="phe">Science</div>
+      <h1>Our <em>Research</em></h1>
+      <p class="psub">[One sentence summarizing the lab&rsquo;s research scope and approach.]</p>
+    </div>
+  </div>
+  <div class="stbar" id="stbar-research">
+    <div class="wr">
+      <span class="stab on" onclick="showSub('research',this,'sp-res-int')">Research Interests</span>
+      <span class="stab" onclick="showSub('research',this,'sp-res-goals')">Goals</span>
+      <span class="stab" onclick="showSub('research',this,'sp-res-pubs')">Publications</span>
+    </div>
+  </div>
+
+  <div id="sp-res-int" class="sp on">
+    <div class="wr">
+      <div class="sh fi"><div class="she">Focus Areas</div><h2>Research <em>Interests</em></h2><p>[Brief framing of the lab&rsquo;s core scientific interests.]</p></div>
+      <div class="igrid">
+        <div class="icard fi"><h3>Hereditary Hemorrhagic Telangiectasia</h3><p>[2&ndash;3 sentences on the lab&rsquo;s interest in HHT &mdash; what it is, what angle the lab takes.]</p><div class="itags"><span class="itag">Genetics</span><span class="itag">Rare Disease</span></div></div>
+        <div class="icard fi"><h3>Arteriovenous Malformations</h3><p>[2&ndash;3 sentences on AVM biology &mdash; how they form, how the lab studies them.]</p><div class="itags"><span class="itag">Vascular Biology</span><span class="itag">ALK1 Signaling</span></div></div>
+        <div class="icard fi"><h3>PRIME Editing &amp; Variant Validation</h3><p>[2&ndash;3 sentences on the genomic/computational approach.]</p><div class="itags"><span class="itag">PRIME Editing</span><span class="itag">Computational</span></div></div>
+        <div class="icard fi"><h3>Endothelial Cell Mechanobiology</h3><p>[2&ndash;3 sentences on flow, shear stress, and endothelial signaling.]</p><div class="itags"><span class="itag">Biomechanics</span><span class="itag">Shear Stress</span></div></div>
+        <div class="icard fi ph"><h3>[Interest Area Placeholder]</h3><p>[Ask Dr. Anzell: any additional interest areas?]</p><div class="itags"><span class="itag">TBD</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sp-res-goals" class="sp">
+    <div class="wr">
+      <div class="sh fi"><div class="she">Where We&rsquo;re Going</div><h2>Lab <em>Goals</em></h2><p>[A sentence on the lab&rsquo;s short and long-term scientific ambitions.]</p></div>
+      <div class="glist">
+        <div class="gitem fi"><div class="gnum">01</div><div><h3>Identify At-Risk Patients Through Molecular Genetic Validation</h3><p>[2&ndash;3 sentences elaborating this goal.]</p></div></div>
+        <div class="gitem fi"><div class="gnum">02</div><div><h3>Understand the Cellular Mechanisms of AVM Development</h3><p>[2&ndash;3 sentences on this goal.]</p></div></div>
+        <div class="gitem fi"><div class="gnum">03</div><div><h3>Develop Targeted Therapeutics for HHT</h3><p>[2&ndash;3 sentences on the translational goal.]</p></div></div>
+        <div class="gitem fi ph"><div class="gnum">04</div><div><h3>[Goal Placeholder]</h3><p>[Ask Dr. Anzell: any additional goals or future directions?]</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sp-res-pubs" class="sp">
+    <div class="wr">
+      <div class="sh fi"><div class="she">Scholarly Work</div><h2><em>Publications</em></h2><p>[Optional &mdash; &ldquo;Peer-reviewed work from the Anzell Lab and Dr. Anzell&rsquo;s prior research.&rdquo;]</p></div>
+      <div class="plist">
+        <div class="pitem fi"><div class="pyr">2024</div><div><div class="pttl">[Paper title &mdash; ask Dr. Anzell for full list with accurate titles]</div><div class="pau">Anzell AR, [Co-authors], et al.</div><div class="pjn">[Journal Name, Volume, Pages]</div><div class="plks"><a href="#" class="plk">PubMed</a><a href="#" class="plk">Full Text</a><a href="#" class="plk">PDF</a></div></div></div>
+        <div class="pitem fi"><div class="pyr">2023</div><div><div class="pttl">Shear Stress and Sub-Femtomolar Levels of Ligand Synergize to Activate ALK1 Signaling in Endothelial Cells</div><div class="pau">Cheng YW, Anzell AR, Morosky SA, Schwartze TA, Hinck CS, Hinck AP, Roman BL, Davidson LA</div><div class="pjn">[Journal Name &mdash; add here]</div><div class="plks"><a href="#" class="plk">PubMed</a><a href="#" class="plk">Full Text</a></div></div></div>
+        <div class="pitem fi"><div class="pyr">2021</div><div><div class="pttl">Agent-Based Modeling of Neuronal Mitochondrial Dynamics Using Intrinsic Variables of Individual Mitochondria</div><div class="pau">Fogo GM, Torres Torres FJ, Speas RL, Anzell AR, Sanderson TH</div><div class="pjn">[Journal Name &mdash; add here]</div><div class="plks"><a href="#" class="plk">PubMed</a><a href="#" class="plk">Full Text</a></div></div></div>
+        <div class="pitem fi"><div class="pyr">2020</div><div><div class="pttl">Modulation of Mitochondrial Function with Near-Infrared Light Reduces Brain Injury in a Translational Model of Cardiac Arrest</div><div class="pau">Wider JM, Gruley E, Morse PT, &hellip;, Anzell AR, Fogo GM, et al.</div><div class="pjn">[Journal Name &mdash; add here]</div><div class="plks"><a href="#" class="plk">PubMed</a><a href="#" class="plk">Full Text</a></div></div></div>
+        <div class="pitem fi ph"><div class="pyr" style="color:var(--soft)">&mdash;</div><div><div class="pttl">[More publications &mdash; ask Dr. Anzell for complete list with journal names and DOIs]</div></div></div>
+      </div>
+    </div>
+  </div>
+</div><!-- /research -->
+
+
+<!-- ═══════════════════════════════════════════
+     MEMBERS
+═══════════════════════════════════════════ -->
+<div id="pg-members" class="pg">
+  <div class="phero">
+    <div class="phi">
+      <div class="phe">The Team</div>
+      <h1>Lab <em>Members</em></h1>
+      <p class="psub">[Optional sentence about the lab&rsquo;s culture or team philosophy.]</p>
+    </div>
+  </div>
+  <div class="stbar" id="stbar-members">
+    <div class="wr">
+      <span class="stab on" onclick="showSub('members',this,'sp-mem-cur')">Current Members</span>
+      <span class="stab" onclick="showSub('members',this,'sp-mem-past')">Past Members</span>
+    </div>
+  </div>
+
+  <div id="sp-mem-cur" class="sp on">
+    <div class="wr">
+      <div class="mlist">
+
+        <!-- EDIT: one .mrow per PI / postdoc / grad student. Replace .pph with real <img src="..." style="width:100%;height:100%;object-fit:cover;"/> -->
+        <div class="mrow fi">
+          <div class="mrow-img">
+            <div class="pph" style="height:100%;min-height:240px">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Photo
+            </div>
+          </div>
+          <div class="mrow-body">
+            <div class="mrole">Principal Investigator</div>
+            <div class="mname">Anthony R. Anzell, Ph.D.</div>
+            <p class="mbio">[PI bio — 3-4 sentences. Title, department, research focus, background. Ask Dr. Anzell for preferred wording.]</p>
+            <div class="mlinks">
+              <a class="mlink" href="mailto:anthony.anzell@slu.edu">Email</a>
+              <a class="mlink" href="#">Google Scholar</a>
+              <a class="mlink" href="#">CV</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="mrow fi" style="opacity:.55">
+          <div class="mrow-img"><div class="pph" style="height:100%;min-height:240px">Photo</div></div>
+          <div class="mrow-body">
+            <div class="mrole">Postdoctoral Researcher</div>
+            <div class="mname">[Name Placeholder]</div>
+            <p class="mbio">[Research focus and background — 3-4 sentences. What are they working on in the lab?]</p>
+            <div class="mlinks"><a class="mlink" href="#">Email</a><a class="mlink" href="#">Google Scholar</a></div>
+          </div>
+        </div>
+
+        <div class="mrow fi" style="opacity:.55">
+          <div class="mrow-img"><div class="pph" style="height:100%;min-height:240px">Photo</div></div>
+          <div class="mrow-body">
+            <div class="mrole">Ph.D. Student</div>
+            <div class="mname">[Name Placeholder]</div>
+            <p class="mbio">[Year in program, thesis project focus, background or prior institution — 3-4 sentences.]</p>
+            <div class="mlinks"><a class="mlink" href="#">Email</a></div>
+          </div>
+        </div>
+
+        <div class="mrow fi" style="opacity:.55">
+          <div class="mrow-img"><div class="pph" style="height:100%;min-height:240px">Photo</div></div>
+          <div class="mrow-body">
+            <div class="mrole">Ph.D. Student</div>
+            <div class="mname">[Name Placeholder]</div>
+            <p class="mbio">[Year in program, thesis project focus, background — 3-4 sentences.]</p>
+            <div class="mlinks"><a class="mlink" href="#">Email</a></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Undergrads in compact grid below -->
+      <div class="ugrid-section fi">
+        <div class="ugrid-label">Undergraduate Researchers</div>
+        <div class="mgrid">
+          <div class="mcard" style="opacity:.55">
+            <div class="pph h160">Photo</div>
+            <div class="minfo">
+              <div class="mrole">Undergraduate Researcher</div>
+              <div class="mname">[Name Placeholder]</div>
+              <p class="mbio">[Major, year, project focus.]</p>
+            </div>
+          </div>
+          <!-- EDIT: add more undergrad cards as needed -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sp-mem-past" class="sp">
+    <div class="wr">
+      <div class="mlist">
+        <div class="mrow fi" style="opacity:.55">
+          <div class="mrow-img"><div class="pph" style="height:100%;min-height:200px">Photo</div></div>
+          <div class="mrow-body">
+            <div class="mrole">Alumnus / Alumna</div>
+            <div class="mname">[Name Placeholder]</div>
+            <p class="mbio">[Current position after leaving the lab. Where did they go? What are they doing now?]</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /members -->
+
+
+<!-- ═══════════════════════════════════════════
+     JOIN US
+═══════════════════════════════════════════ -->
+<div id="pg-join" class="pg">
+  <div class="phero">
+    <div class="phi">
+      <div class="phe">Opportunities</div>
+      <h1>Join the <em>Lab</em></h1>
+      <p class="psub">[1 sentence about the kind of people the lab is looking for.]</p>
+    </div>
+  </div>
+
+  <div style="padding:4.5rem 0">
+    <div class="wr">
+      <div class="jform-layout">
+
+        <!-- LEFT: context -->
+        <div class="jform-info fi">
+          <div class="sh" style="margin-bottom:2rem">
+            <div class="she">Apply</div>
+            <h2>Work With <em>Us</em></h2>
+          </div>
+          <p style="font-size:.93rem;color:var(--mid);line-height:1.85;margin-bottom:1.2rem">[Ask Dr. Anzell: what kind of people is he looking for? What qualities matter most?]</p>
+          <p style="font-size:.93rem;color:var(--mid);line-height:1.85;margin-bottom:2rem">[What can new members expect to work on? What will they learn?]</p>
+
+          <!-- open positions summary -->
+          <div style="display:flex;flex-direction:column;gap:.7rem">
+            <div class="poscard"><div class="postitle">Postdoctoral Researcher <span class="bdg closed">Closed</span></div></div>
+            <div class="poscard"><div class="postitle">Ph.D. Student (Rotation) <span class="bdg open">Open</span></div></div>
+            <div class="poscard"><div class="postitle">Undergraduate Researcher <span class="bdg open">Open</span></div></div>
+          </div>
+        </div>
+
+        <!-- RIGHT: application form -->
+        <div class="fi">
+          <div class="jform-card">
+            <div class="jform-card-head">
+              <div class="jform-card-title">Application Form</div>
+              <div class="jform-card-sub">Fill out the form and attach your CV. Dr. Anzell will follow up by email.</div>
+            </div>
+            <form class="jform" onsubmit="hJoin(event)">
+              <div class="frow">
+                <div class="fg"><label>First Name</label><input type="text" placeholder="Jane" required/></div>
+                <div class="fg"><label>Last Name</label><input type="text" placeholder="Smith" required/></div>
+              </div>
+              <div class="fg"><label>Email Address</label><input type="email" placeholder="jane@university.edu" required/></div>
+              <div class="fg"><label>Current Institution</label><input type="text" placeholder="Saint Louis University" required/></div>
+              <div class="fg"><label>Position of Interest</label>
+                <select required>
+                  <option value="">Select one...</option>
+                  <option>Postdoctoral Researcher</option>
+                  <option>Ph.D. Student (Rotation)</option>
+                  <option>Undergraduate Researcher</option>
+                </select>
+              </div>
+              <div class="fg"><label>Research Background</label><textarea placeholder="Briefly describe your research background, relevant skills, and why you are interested in the Anzell Lab..." style="min-height:110px" required></textarea></div>
+              <div class="fg">
+                <label>Attach CV / Resume</label>
+                <div class="file-drop" id="fileDrop" onclick="document.getElementById('cvFile').click()">
+                  <input type="file" id="cvFile" accept=".pdf,.doc,.docx" style="display:none" onchange="handleFile(this)"/>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  <span id="fileLabel">Click to upload CV (PDF or Word)</span>
+                </div>
+              </div>
+              <button type="submit" class="btn btng" style="width:100%;justify-content:center">Submit Application</button>
+              <p style="font-size:.72rem;color:var(--soft);text-align:center;margin-top:.5rem">[Note: form needs backend — connect to Formspree or SLU mail]</p>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div><!-- /join -->
+
+
+<!-- ═══════════════════════════════════════════
+     CONTACT
+═══════════════════════════════════════════ -->
+<div id="pg-contact" class="pg">
+  <div class="phero">
+    <div class="phi">
+      <div class="phe">Reach Out</div>
+      <h1>Contact <em>Us</em></h1>
+      <p class="psub">[Optional &mdash; &ldquo;We welcome inquiries from students, collaborators, and patients.&rdquo;]</p>
+    </div>
+  </div>
+  <div style="padding:4.5rem 0">
+    <div class="wr">
+      <div class="cgrid">
+        <!-- EDIT: connect to Formspree or SLU mail backend -->
+        <form class="cform fi" onsubmit="hForm(event)">
+          <div class="frow">
+            <div class="fg"><label>First Name</label><input type="text" placeholder="Jane" required/></div>
+            <div class="fg"><label>Last Name</label><input type="text" placeholder="Smith" required/></div>
+          </div>
+          <div class="fg"><label>Email</label><input type="email" placeholder="jane@example.com" required/></div>
+          <!-- EDIT: adjust options as needed -->
+          <div class="fg"><label>Reason for Contact</label>
+            <select>
+              <option value="">Select one...</option>
+              <option>Prospective Graduate Student</option>
+              <option>Prospective Undergraduate Researcher</option>
+              <option>Postdoctoral Inquiry</option>
+              <option>Research Collaboration</option>
+              <option>HHT Patient / Family</option>
+              <option>Media / Press</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="fg"><label>Message</label><textarea placeholder="Tell us about yourself or your inquiry..."></textarea></div>
+          <button type="submit" class="btn btng">Send Message</button>
+          <p style="font-size:.74rem;color:var(--soft)">[Note: form needs backend &mdash; connect to Formspree or SLU mail]</p>
+        </form>
+        <div class="cinfo fi">
+          <div class="ci">
+            <div class="ciico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><!-- EDIT: building + room --><div class="cilbl">Location</div><div class="cival">[Building Name, Room XXX]<br/>1100 South Grand Blvd<br/>St. Louis, MO 63104</div></div>
+          </div>
+          <div class="ci">
+            <div class="ciico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div><!-- EDIT: confirm email --><div class="cilbl">Email</div><div class="cival"><a href="mailto:anthony.anzell@slu.edu" style="color:var(--bl)">anthony.anzell@slu.edu</a></div></div>
+          </div>
+          <div class="ci">
+            <div class="ciico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+            <div><div class="cilbl">Department</div><div class="cival">Department of Pediatrics<br/>SLU School of Medicine</div></div>
+          </div>
+          <div class="ci">
+            <div class="ciico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div><!-- EDIT: hours --><div class="cilbl">Office Hours</div><div class="cival">[By appointment &mdash; ask Dr. Anzell]</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /contact -->
+
+
+<footer>
+  <div class="finner">
+    <div class="fbrand"><span>Anzell Lab</span><small>Department of Pediatrics &middot; Saint Louis University School of Medicine</small></div>
+    <!-- EDIT: update footer links -->
+    <div class="flinks">
+      <a href="#">SLU School of Medicine</a>
+      <a href="#">Dept. of Pediatrics</a>
+      <a href="#">HHT Foundation International</a>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+// ── PAGE NAVIGATION ──────────────────────────────────────────
+var DEF = { research:'sp-res-int', members:'sp-mem-cur' };
+
+function go(key, subId) {
+  document.querySelectorAll('.pg').forEach(function(p){ p.classList.remove('on'); });
+  var pg = document.getElementById('pg-' + key);
+  if(pg) pg.classList.add('on');
+
+  document.querySelectorAll('.ntab').forEach(function(t){ t.classList.remove('on'); });
+  var tab = document.querySelector('.ntab[data-pg="' + key + '"]');
+  if(tab) tab.classList.add('on');
+
+  var target = subId || DEF[key];
+  if(target) {
+    var pg2 = document.getElementById('pg-' + key);
+    if(pg2) {
+      pg2.querySelectorAll('.sp').forEach(function(s){ s.classList.remove('on'); });
+      var sp = document.getElementById(target);
+      if(sp) sp.classList.add('on');
+      var bar = document.getElementById('stbar-' + key);
+      if(bar) {
+        bar.querySelectorAll('.stab').forEach(function(s){
+          s.classList.toggle('on', s.getAttribute('onclick') && s.getAttribute('onclick').indexOf(target) !== -1);
+        });
+      }
+    }
+  }
+  window.scrollTo({top:0, behavior:'instant'});
+  fade();
+}
+
+function showSub(key, el, subId) {
+  var pg = document.getElementById('pg-' + key);
+  if(!pg) return;
+  pg.querySelectorAll('.sp').forEach(function(s){ s.classList.remove('on'); });
+  var sp = document.getElementById(subId);
+  if(sp) sp.classList.add('on');
+  var bar = document.getElementById('stbar-' + key);
+  if(bar) bar.querySelectorAll('.stab').forEach(function(s){ s.classList.remove('on'); });
+  el.classList.add('on');
+  fade();
+}
+
+// ── PROJECT SCROLL ───────────────────────────────────────────
+var CARD_W = 356; // card width + gap
+function scrollProj(dir) {
+  var t = document.getElementById('projTrack');
+  if(!t) return;
+  t.scrollBy({ left: dir * CARD_W * 1.5, behavior: 'smooth' });
+  setTimeout(updateBar, 350);
+}
+function updateBar() {
+  var t = document.getElementById('projTrack');
+  var b = document.getElementById('sprbar');
+  if(!t || !b) return;
+  var pct = t.scrollLeft / (t.scrollWidth - t.clientWidth);
+  b.style.width = Math.max(15, Math.round(pct * 100)) + '%';
+}
+document.addEventListener('DOMContentLoaded', function(){
+  var t = document.getElementById('projTrack');
+  if(t) t.addEventListener('scroll', updateBar);
+
+  // drag-to-scroll
+  var isDown = false, startX, scrollL;
+  t && t.addEventListener('mousedown', function(e){ isDown=true; startX=e.pageX-t.offsetLeft; scrollL=t.scrollLeft; });
+  document.addEventListener('mousemove', function(e){ if(!isDown||!t) return; e.preventDefault(); var x=e.pageX-t.offsetLeft; t.scrollLeft=scrollL-(x-startX)*1.2; updateBar(); });
+  document.addEventListener('mouseup', function(){ isDown=false; });
+});
+
+// ── FORM ─────────────────────────────────────────────────────
+function hForm(e){ e.preventDefault(); alert('Thank you! (Form backend not yet connected.)'); }
+function hJoin(e){ e.preventDefault(); alert('Application submitted! (Form backend not yet connected.)'); }
+function handleFile(input){
+  var drop = document.getElementById('fileDrop');
+  var lbl = document.getElementById('fileLabel');
+  if(input.files && input.files[0]){
+    lbl.textContent = input.files[0].name;
+    drop.classList.add('has-file');
+  }
+}
+
+// ── FADE IN ───────────────────────────────────────────────────
+function fade(){
+  requestAnimationFrame(function(){
+    document.querySelectorAll('.fi:not(.vs)').forEach(function(el){
+      if(el.getBoundingClientRect().top < window.innerHeight - 30) el.classList.add('vs');
+    });
+  });
+}
+var obs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('vs'); });
+},{threshold:.07});
+document.querySelectorAll('.fi').forEach(function(el){ obs.observe(el); });
+</script>
+</body>
+</html>
